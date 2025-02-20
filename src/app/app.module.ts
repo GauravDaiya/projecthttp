@@ -12,6 +12,10 @@ import { DatePipe } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { myInterceptorInterceptor } from './core/interceptors/my-interceptor.interceptor';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { LottieComponent, provideCacheableAnimationLoader, provideLottieOptions } from 'ngx-lottie';
+import player from 'lottie-web';
+
 
 @NgModule({
   declarations: [
@@ -23,14 +27,20 @@ import { myInterceptorInterceptor } from './core/interceptors/my-interceptor.int
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
+    LottieComponent
   ],
   providers: [
-    provideAnimationsAsync(),
+    provideAnimations(),
     provideNativeDateAdapter(),
     provideHttpClient(),
     DatePipe,
-    provideHttpClient(withInterceptors([myInterceptorInterceptor]))
+    provideHttpClient(withInterceptors([myInterceptorInterceptor])),
+    provideCacheableAnimationLoader(),
+    provideLottieOptions({
+      player: () => import('lottie-web'),
+    }),
   ],
   bootstrap: [AppComponent]
 })

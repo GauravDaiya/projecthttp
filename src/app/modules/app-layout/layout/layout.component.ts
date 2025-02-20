@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../../../core/modals/create-task/create-task.component';
 import { UserserviceService } from '../../../core/services/userservice.service';
+import { AnimationOptions } from 'ngx-lottie';
+import { LoaderserviceService } from '../../../core/services/loaderservice.service';
 
 @Component({
   selector: 'app-layout',
@@ -10,21 +12,35 @@ import { UserserviceService } from '../../../core/services/userservice.service';
 })
 export class LayoutComponent implements OnInit {
 
+  options: AnimationOptions = {
+    path: 'assets/loader.json',
+    autoplay: true,
+    loop: true
+  };
+  styles: Partial<CSSStyleDeclaration> = {
+    width: '300px',
+    height: '300px',
+    borderRadius: '10px',
+    margin: '0 auto',
+    backgroundColor: '#ffffff98'
+  };
+
   readonly dialog = inject(MatDialog);
   public AllTaskData!: any [];
   public LoaderStatus!: boolean;
 
   constructor(
-    private userSrv: UserserviceService
+    private userSrv: UserserviceService,
+    private loaderSrv: LoaderserviceService
   ) {}
 
   ngOnInit(): void {
     this.userSrv.tasks$.subscribe((res) => {
       this.AllTaskData = res
     })
-    // this.userSrv.loaderStatus$.subscribe((res) => {
-    //   this.LoaderStatus = res;
-    // })
+    this.loaderSrv.loaderStatus$.subscribe((res) => {
+      this.LoaderStatus = res;
+    })
   }
 
   DeleteTask(id:number) {
