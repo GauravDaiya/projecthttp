@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BehaviorSubject, delay } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class UserserviceService {
 
   private taskSubject = new BehaviorSubject([]);
   tasks$ = this.taskSubject.asObservable();
-
+  private baseUrl = environment.apiUrl;
 
 
   constructor(
@@ -22,23 +23,15 @@ export class UserserviceService {
 
 
   createTask(data: any) {
-    return this.http.post('http://localhost:3000/tasks', data)
- 
+    return this.http.post(`${this.baseUrl}`, data);
   }
 
   deleteTask(id: number) {
-    return this.http.delete(`http://localhost:3000/tasks/${id}`)
+    return this.http.delete(`${this.baseUrl}/${id}`); 
   }
 
-
   getAllTasks() {
-
-    return this.http.get<any>('http://localhost:3000/tasks');
-
-
-    // return this.http.get<any>('http://localhost:3000/tasks').subscribe((tasks:any) => {
-    //   this.taskSubject.next(tasks); 
-    // });
+    return this.http.get<any>(`${this.baseUrl}`);  
   }
 
 
