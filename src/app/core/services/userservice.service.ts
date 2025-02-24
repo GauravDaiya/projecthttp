@@ -11,7 +11,7 @@ export class UserserviceService {
   private taskSubject = new BehaviorSubject([]);
   tasks$ = this.taskSubject.asObservable();
 
-  
+
 
   constructor(
     private http: HttpClient,
@@ -20,26 +20,26 @@ export class UserserviceService {
     this.getAllTasks()
   }
 
-  
+
   createTask(data: any) {
-    return this.http.post('http://localhost:3000/tasks', data).subscribe(() => {
-      this.getAllTasks(); 
-    });
+    return this.http.post('http://localhost:3000/tasks', data)
+ 
   }
 
-  deleteTask(id:number) {
-    return this.http.delete(`http://localhost:3000/tasks/${id}`).subscribe(() => {
-      this.getAllTasks();
-    })
+  deleteTask(id: number) {
+    return this.http.delete(`http://localhost:3000/tasks/${id}`)
   }
 
-  
+
   getAllTasks() {
-    
-    this.http.get<any[]>('http://localhost:3000/tasks').subscribe((tasks:any) => {
-      this.taskSubject.next(tasks); 
-    });
+
+    return this.http.get<any>('http://localhost:3000/tasks');
+
+
+    // return this.http.get<any>('http://localhost:3000/tasks').subscribe((tasks:any) => {
+    //   this.taskSubject.next(tasks); 
+    // });
   }
 
-  
+
 }

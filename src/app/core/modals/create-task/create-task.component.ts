@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserserviceService } from '../../services/userservice.service';
+import { taskStore } from '@layout';
 
 @Component({
   selector: 'app-create-task',
@@ -17,7 +18,8 @@ export class CreateTaskComponent {
     public dialogRef: MatDialogRef<CreateTaskComponent>,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
-    private userSrv: UserserviceService
+    private userSrv: UserserviceService,
+    private store: taskStore
   ) {
     this.userForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
@@ -37,7 +39,8 @@ export class CreateTaskComponent {
     const formattedDate = this.formatDate(this.userForm.get('createdAt')?.value);
     const UserFormRes = { ...this.userForm.value, createdAt: formattedDate };
     console.log(this.userForm.value);
-    this.userSrv.createTask(this.userForm.value);
+    this.store.createTask(this.userForm.value)
+    // this.userSrv.createTask(this.userForm.value);
     this.userForm.reset()
     this.closeModal()
   }

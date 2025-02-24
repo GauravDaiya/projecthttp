@@ -4,6 +4,7 @@ import { CreateTaskComponent } from '../../../core/modals/create-task/create-tas
 import { UserserviceService } from '../../../core/services/userservice.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { LoaderserviceService } from '../../../core/services/loaderservice.service';
+import { taskStore } from '@layout';
 
 @Component({
   selector: 'app-layout',
@@ -31,11 +32,17 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private userSrv: UserserviceService,
-    private loaderSrv: LoaderserviceService
+    private loaderSrv: LoaderserviceService,
+    private store: taskStore
   ) {}
 
   ngOnInit(): void {
-    this.userSrv.tasks$.subscribe((res) => {
+    // this.userSrv.tasks$.subscribe((res) => {
+    //   this.AllTaskData = res
+    // })
+    this.store.fetchAllTask();
+    this.store.tasks$.subscribe((res) => {
+      console.log(res)
       this.AllTaskData = res
     })
     this.loaderSrv.loaderStatus$.subscribe((res) => {
@@ -44,7 +51,8 @@ export class LayoutComponent implements OnInit {
   }
 
   DeleteTask(id:number) {
-    this.userSrv.deleteTask(id);
+    this.store.DeleteTask(id);
+    // this.userSrv.deleteTask(id);
   }
 
   openDialog() {

@@ -10,6 +10,7 @@ import { myInterceptorInterceptor } from '../../core/interceptors/my-interceptor
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
+import { taskStore } from './store-services/layout.store';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import player from 'lottie-web';
     LottieComponent
   ],
   providers: [
+    taskStore,
     provideHttpClient(withInterceptors([myInterceptorInterceptor])),
     provideLottieOptions({
       player: () => player,
