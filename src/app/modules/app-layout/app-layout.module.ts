@@ -11,14 +11,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { taskStore } from './store-services/layout.store';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    LayoutComponent
+    LayoutComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AppLayoutRoutingModule,
     MaterialModule,
     NgxSpinnerModule,

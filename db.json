@@ -37,14 +37,12 @@
       "id": 4
     }
   ],
-  "comments": [
+  "users": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "email": "test@example.com",
+      "password": "123456",
+      "token": "fake-jwt-token"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
